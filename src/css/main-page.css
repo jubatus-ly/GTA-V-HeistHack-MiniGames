@@ -1,0 +1,42 @@
+.main-heist-hack .header, .main-heist-hack {
+  display: flex;
+  flex-direction: column;
+}
+
+html {
+  font-size: 16px;
+}
+
+.main-heist-hack {
+  background-color: #3C3934;
+}
+.main-heist-hack .header {
+  align-items: center;
+  gap: 0.5rem;
+}
+.main-heist-hack .header .site-title {
+  color: #BABABA;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 4.875rem;
+  font-weight: 400;
+  margin: 0;
+}
+.main-heist-hack .header .site-subtitle {
+  color: #BABABA;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 3.625rem;
+  font-weight: 400;
+  margin: 0;
+}
+.main-heist-hack .container {
+  display: flex;
+  gap: 0.625rem;
+  margin-left: calc((100vh - 69.375rem) / 2);
+}
+.main-heist-hack .container .card {
+  width: 34.375rem;
+  height: 15.625rem;
+  border: solid 1.5px white;
+}
+
+/*# sourceMappingURL=main-page.css.map */

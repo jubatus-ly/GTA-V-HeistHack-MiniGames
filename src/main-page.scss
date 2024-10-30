@@ -1,0 +1,54 @@
+$h-bg-c: #3C3934;
+$h-font-c: #BABABA;
+$h-font: "Noto Sans", sans-serif;
+
+%display-flex {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin font($size, $weight) {
+    color: $h-font-c;
+    font-family: $h-font;
+    font-size: $size;
+    font-weight: $weight;
+}
+
+html {
+    font-size: 16px;
+}
+
+.main-heist-hack {
+    background-color: $h-bg-c;
+    @extend %display-flex;
+
+    .header {
+        @extend %display-flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .site-title {
+          @include font($size: 4.875rem, $weight: 400);
+          margin: 0;
+        }
+        
+        .site-subtitle {
+          @include font($size: 3.625rem, $weight: 400);
+          margin:0;
+        }
+    }
+
+    .container {
+        display: flex;
+        gap: 0.625rem;
+        margin-left: calc(calc(100vh - calc(calc(34.375rem * 2) + 0.625rem)) / 2) ;
+        
+        .card {
+            width: 34.375rem;
+            height: 15.625rem;
+            border: solid 1.5px white;
+            .card-header {}
+            .card-content {}
+        }
+    }
+}
