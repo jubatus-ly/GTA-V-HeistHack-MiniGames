@@ -1,8 +1,0 @@
-node_modules/
-.vscode/
-*.tsbuildinfo
-
-# Log files
-*.log
-
-nodemon.json

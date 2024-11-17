@@ -2,6 +2,7 @@ $h-bg-c: #3C3934;
 $h-font-c: #BABABA;
 $h-font: "Noto Sans", sans-serif;
 $h-calc: calc((100vw - (34.375rem * 2 + 1.525rem)) / 2);
+$h-pd-card-element: 0.625rem;
 
 %display-flex {
     display: flex;
@@ -53,19 +54,33 @@ html {
             height: 15.625rem;
             border: solid 0.094rem black;
             border-radius: 0.938rem;
-            box-shadow: 0.313rem 0rem 0.313rem black;
-
+            transition: box-shadow 300ms, transform;
+            box-shadow: -0.313rem 0rem 0.313rem black;
+            padding: $h-pd-card-element;
+           
             .card-header {
-                padding: 0.625rem 0.625rem;
+                padding-bottom: $h-pd-card-element;
                 @include font($size: 2.125rem, $weight: 400);
             }
             .card-content {
-                padding: 0.625rem 0.625rem;
                 @include font($size: 1.125rem, $weight: 400);
             }
         }
-        .ellipsis {
-          // Multi Line ellipsis  
+
+        .card:hover {
+            transform: translate(4px, -4px);
+            box-shadow: -0.5rem 0.5rem 0.313rem black;
         }
+
+        .truncate-overflow {
+            position: relative;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 7; 
+            -webkit-box-orient: vertical;
+            // find a way to change this webkit-box-orient stuff because it's deprecated
+        }
+
     }
 }
