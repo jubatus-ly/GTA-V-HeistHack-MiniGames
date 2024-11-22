@@ -1,0 +1,75 @@
+html {
+    background: url("../../../asset/laptop-hack.png") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    font-family: 'Archivo Black', sans-serif;
+}
+
+button {
+    background-color: #243241;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+}
+
+button:hover {
+    background-color: #2E4561;
+}
+
+.laptop-hack {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .laptop-screen {
+        min-width: 75rem;
+        height: 100vh;
+        background-color: #20242E;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .center-error-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .error-text {
+            color: white;
+            
+            .capital {
+                font-size: x-large;
+            }
+        }
+
+        .try-again {
+            width: 100%;
+            text-align: center;
+            .try-again-button {
+                // no properties yet
+            }
+            .try-again-hint {
+                color: white;
+            }
+        }
+        
+    }
+
+}
