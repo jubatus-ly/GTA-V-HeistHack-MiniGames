@@ -7,7 +7,7 @@
 </head>
 <body class="laptop-hack">
     <div class="laptop-screen">
-        <div class="">
+        <div class="center-error-message">
             <img src="../../../asset/failed.png" alt="forbidden sign">
             <h3 class="error-text">
                 <span class="capital">L</span>E SYSTÈME N'A PAS ACCEPTÉ VOS RÉPONSES
@@ -20,6 +20,31 @@
         </div>
     </div>
 
+    <div class="configure">
+        <div class="hack">
+            <div class="puzzle-amount">
+                <input type="range" id="amount-control" name="amount-control" min="5" max="30" value="7">
+                <div class="display-amount">
+                    Puzzle Amount: <span class="number">4</span>
+                </div>
+            </div>
+            <div class="puzzle-time">
+                <input type="range" id="time-control" name="time-control" min="5" max="30" value="7">
+                <div class="display-time">
+                    Puzzle Time: <span class="number">7</span>
+                </div>
+            </div>
+        </div>
+        <div class="help">
+            <button class="language-button">
+                <span class="flag-selected-display flag-icon"></span>
+                v
+            </button>
+            <button class="help-button">?</button>
+            <button class="github-button">Github</button>
+        </div>
+    </div>
+ 
     <script type="module" src="laptop.ts"></script>
 </body>
 </html>
