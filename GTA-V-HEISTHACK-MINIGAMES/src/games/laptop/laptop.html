@@ -8,19 +8,22 @@
 <body class="laptop-hack">
     <div class="laptop-screen">
         <div class="center-error-message">
-            <img src="../../../asset/failed.png" alt="forbidden sign">
+            <img src="../../../asset/laptop/failed.png" alt="forbidden sign">
             <h3 class="error-text">
                 <span class="capital">L</span>E SYSTÈME N'A PAS ACCEPTÉ VOS RÉPONSES
             </h3> 
         </div>
+        <div id="container-puzzle" class="container-number hidden">
+
+        </div>
         <div class="try-again">
-            <button class="try-again-button">Try Again</button>
-            <div class="try-again-hint">Le temps s'est écoulé la réponse était "noir rouge"</div>
-            <div class="try-again-hint">Trop vite? Entraînez-vous en changeant le temps du puzzle!</div>
+            <button id="try-again-button" class="hidden">Try Again</button>
+            <div class="try-again-hint hidden">Le temps s'est écoulé la réponse était "noir rouge"</div>
+            <div class="try-again-hint hidden">Trop vite? Entraînez-vous en changeant le temps du puzzle!</div>
         </div>
     </div>
 
-    <div class="configure">
+    <!-- <div class="configure">
         <div class="hack">
             <div class="puzzle-amount">
                 <input type="range" id="amount-control" name="amount-control" min="5" max="30" value="7">
@@ -43,7 +46,7 @@
             <button class="help-button">?</button>
             <button class="github-button">Github</button>
         </div>
-    </div>
+    </div> -->
  
     <script type="module" src="laptop.ts"></script>
 </body>
