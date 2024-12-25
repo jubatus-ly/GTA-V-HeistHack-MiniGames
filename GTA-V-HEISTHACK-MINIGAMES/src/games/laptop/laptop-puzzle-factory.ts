@@ -41,8 +41,12 @@ export function generateRandomPuzzle(): PuzzleData | undefined {
     const colors = COLORABLE.reduce((obj: {[key: string]: string}, color:string) => {obj[color] = sample(Object.keys(COLORS)); return obj}, {});
     
     // ensure color and shape text don't blend with background
+    while(['colortext', 'shapetext'].map(i => colors[i]).includes(colors['background']))
+        colors['background'] = sample(Object.keys(COLORS));
     
     // ensure nothing blends with shape
+    while(['background', 'colortext', 'shapetext', 'number'].map(i => colors[i]).includes(colors['shape']))
+        colors['shape'] = sample(Object.keys(COLORS));
 
     return new PuzzleData(shape, number, [topText, bottomText], colors);
 }
