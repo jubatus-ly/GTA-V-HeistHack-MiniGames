@@ -14,8 +14,20 @@ export const COLORS = {
     'purple' : '#9926ac',
 }
 
+type QST = {[key: string]: (d: PuzzleData) => string;}
 
-class PuzzleData {
+const QUESTIONS : QST = {
+    'background color' : (d:PuzzleData) => d.colors['background'],
+    'color text background color' : (d:PuzzleData) => d.colors['colortext'],
+    'shape text background color' : (d:PuzzleData) => d.colors['shapetext'],
+    'number color' : (d:PuzzleData) => d.colors['number'],
+    'shape color' : (d:PuzzleData) => d.colors['shape'],
+    'color text' : (d:PuzzleData) => d.text[0],
+    'shape text' : (d:PuzzleData) => d.text[1],
+    'shape' : (d:PuzzleData) => d.shape
+}
+
+export class PuzzleData {
     shape: string;
     number : number;
     text: string[];
@@ -30,9 +42,8 @@ class PuzzleData {
 }
 
 
-export function generateRandomPuzzle(): PuzzleData | undefined {
+export function generateRandomPuzzle(): PuzzleData {
 
-    // What do we need here 
     const shape : string = sample(SHAPES);
     const number : number = randomInt(9) + 1;
     const topText : string = sample(Object.keys(COLORS));
@@ -49,8 +60,34 @@ export function generateRandomPuzzle(): PuzzleData | undefined {
         colors['shape'] = sample(Object.keys(COLORS));
 
     return new PuzzleData(shape, number, [topText, bottomText], colors);
+
 }
 
-export function generateQuestionAndAnswer() {
-}
+export function generateQuestionAndAnswer(nums: number[], puzzles: PuzzleData[]) : string[] {
 
+    const positionOne = randomInt(nums.length);
+    let tempPosTwo;
+    do {tempPosTwo = randomInt(nums.length)} while(positionOne == tempPosTwo);
+    const positionTwo = tempPosTwo;
+
+    let firstQuestion = sample(Object.keys(QUESTIONS));
+    let tempSecondQuestion;
+    do {tempSecondQuestion = sample(Object.keys(QUESTIONS))} while(tempSecondQuestion == firstQuestion);
+    let secondQuestion = tempSecondQuestion;
+
+    const andWord = 'AND';
+
+    const question = firstQuestion +' ('+ nums[positionOne]+') '+ andWord + secondQuestion + ' ('+nums[positionTwo]+')';
+
+    const a1 = QUESTIONS[firstQuestion](puzzles[positionOne]);
+    const a2 = QUESTIONS[secondQuestion](puzzles[positionTwo]);
+
+    // convert from hex codes to color names, skip if shape
+    const nameA1 = (Object.keys(COLORS) as (keyof typeof COLORS)[]).find(k=>COLORS[k]===a1) || a1
+    const nameA2 = (Object.keys(COLORS) as (keyof typeof COLORS)[]).find(k=>COLORS[k]===a2) || a2
+
+    const answer = nameA1 + ' ' + nameA2;
+
+    return [question, answer];
+
+}

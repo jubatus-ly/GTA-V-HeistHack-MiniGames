@@ -1,3 +1,4 @@
+import { generateQuestionAndAnswer, generateRandomPuzzle, PuzzleData } from "./laptop-puzzle-factory";
 import "./laptop.scss";
 
 const puzzleLength = 4;
@@ -79,8 +80,6 @@ function hack(numberSquare: number) {
         squaresElement.forEach((value) => {
             value.querySelector('div')?.remove();
         });
-        
-        console.log(squaresElement);
     });
     
 }
