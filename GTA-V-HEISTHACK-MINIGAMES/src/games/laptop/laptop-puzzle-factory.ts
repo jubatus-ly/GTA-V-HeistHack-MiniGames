@@ -75,7 +75,7 @@ export function generateQuestionAndAnswer(nums: number[], puzzles: PuzzleData[])
     do {tempSecondQuestion = sample(Object.keys(QUESTIONS))} while(tempSecondQuestion == firstQuestion);
     let secondQuestion = tempSecondQuestion;
 
-    const andWord = 'AND';
+    const andWord = 'and ';
 
     const question = firstQuestion +' ('+ nums[positionOne]+') '+ andWord + secondQuestion + ' ('+nums[positionTwo]+')';
 
@@ -86,7 +86,7 @@ export function generateQuestionAndAnswer(nums: number[], puzzles: PuzzleData[])
     const nameA1 = (Object.keys(COLORS) as (keyof typeof COLORS)[]).find(k=>COLORS[k]===a1) || a1
     const nameA2 = (Object.keys(COLORS) as (keyof typeof COLORS)[]).find(k=>COLORS[k]===a2) || a2
 
-    const answer = nameA1 + ' ' + nameA2;
+    const answer = a1 + ' ' + a2;
 
     return [question, answer];
 

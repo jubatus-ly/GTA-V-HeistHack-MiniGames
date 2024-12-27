@@ -1,5 +1,7 @@
-import { generateQuestionAndAnswer, generateRandomPuzzle, PuzzleData } from "./laptop-puzzle-factory";
+import { sample } from "./helpers";
+import { COLORS, generateQuestionAndAnswer, generateRandomPuzzle, PuzzleData } from "./laptop-puzzle-factory";
 import "./laptop.scss";
+import { getPuzzleSvg } from "./svg-factory";
 
 const puzzleLength = 4;
 const tryAgainButton = document.getElementById('try-again-button');
@@ -69,19 +71,24 @@ function hack(numberSquare: number) {
         const index = Math.floor(Math.random() * arrPuzzleNumber.length);
         const p : Promise<void> = displayNumbers(divPuzzle, arrPuzzleNumber[index], i).then(() => {
             console.log(`Number ${arrPuzzleNumber[index]} has finished its animation.`);
-        });;
+        });
         arrPromisesHideNumbers.push(p);
         arrPuzzleNumber.splice(index, 1);
         containerPuzzle.appendChild(divPuzzle);
     }
 
     Promise.all(arrPromisesHideNumbers).then(() => {
-        const squaresElement : NodeListOf<Element> = document.querySelectorAll('.square')!;
+        const squaresElement : NodeListOf<HTMLElement> = document.querySelectorAll('.square')!;
         squaresElement.forEach((value) => {
             value.querySelector('div')?.remove();
+            const puzzle = generateRandomPuzzle();
+            
+            const puzzleSVG = getPuzzleSvg(puzzle);
+            value.style.background = sample(Object.keys(COLORS));
+            value.innerHTML = puzzleSVG;
         });
     });
-    
+
 }
 
 function displayNumbers(divPuzzle: HTMLElement, num: number, index: number): Promise<void> {
@@ -101,6 +108,7 @@ function displayNumbers(divPuzzle: HTMLElement, num: number, index: number): Pro
         }, 4000));
 
 }
+
 
 init();
 
