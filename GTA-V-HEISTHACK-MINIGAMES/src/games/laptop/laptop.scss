@@ -28,7 +28,8 @@ button:hover {
     align-items: center;
     height: 100vh;
     overflow: hidden;
-    margin: 0;
+    margin: 0 5.188rem 0 5.188rem;
+    
     
     .center {
         display: flex;
@@ -106,6 +107,81 @@ button:hover {
         }
         
     }
+
+
+    
+    .answer-section {
+
+        .countdown{
+            margin: 0;
+            position: absolute;
+            top: 70%;
+            left: 3%;
+          
+            border: #20242E;
+            width: 94%;
+            height: 4px;
+            background-color: #754E2E;
+        }
+          
+        .progress-bar{
+            background-color: #E7A26D;
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            transition: width 0ms linear;
+            
+        }
+        
+        .answer-box {
+
+            .description {
+                    text-align: left;
+                    font-size: 12px;
+                    margin-bottom: 5px;
+                  
+                    color: white;
+                    font-weight: 100;
+                    font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .input-area {
+                    border-bottom: 2px solid rgb(255, 255, 255);
+                    border-right: transparent;
+                    border-top: transparent;
+                    border-left: transparent;
+                    background-color: rgba(0, 0, 0, 0);
+    
+                    .input-icon {
+                        margin: 0;
+                        display: inline-block;
+                        vertical-align: top;
+                      
+                        width: 18px;
+                        padding-top: 4px;
+                    }
+
+                    .answer-input {
+                        color: white;
+                        border: transparent;
+                        background-color: rgba(0, 0, 0, 0);
+                        padding: 5px;
+                      
+                        padding: 5px;
+                      
+                        display: inline-block;
+                        vertical-align: top;
+                      
+                        font-size: 16px;
+                        padding-top: 5px;
+                        width: 170px;
+                    }
+            }    
+        }
+
+            
+        }
+    
 
     .configure {
         min-width: calc(100% - 1.875rem);

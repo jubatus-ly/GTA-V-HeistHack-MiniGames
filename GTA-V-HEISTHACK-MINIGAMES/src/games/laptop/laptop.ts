@@ -1,5 +1,5 @@
 import { sample } from "./helpers";
-import { COLORS, generateQuestionAndAnswer, generateRandomPuzzle, PuzzleData } from "./laptop-puzzle-factory";
+import { COLORS, generateRandomPuzzle } from "./laptop-puzzle-factory";
 import "./laptop.scss";
 import { getPuzzleSvg } from "./svg-factory";
 
@@ -82,10 +82,12 @@ function hack(numberSquare: number) {
         squaresElement.forEach((value) => {
             value.querySelector('div')?.remove();
             const puzzle = generateRandomPuzzle();
-            
-            const puzzleSVG = getPuzzleSvg(puzzle);
             value.style.background = sample(Object.keys(COLORS));
+            while(puzzle.shape === value.style.background) value.style.background = sample(Object.keys(COLORS)); 
+            const puzzleSVG = getPuzzleSvg(puzzle);
             value.innerHTML = puzzleSVG;
+            const answerSection = document.getElementById('answer-container');
+            answerSection?.classList.remove('hidden');
         });
     });
 
