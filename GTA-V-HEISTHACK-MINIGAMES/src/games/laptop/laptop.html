@@ -1,38 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>Laptop Hack</title>
-</head>
-<body class="laptop-hack">
+  </head>
+  <body class="laptop-hack">
     <div class="laptop-screen">
-        <div class="center-error-message">
-            <img src="../../../asset/laptop/failed.png" alt="forbidden sign">
-            <h3 class="error-text">
-                <span class="capital">L</span>E SYSTÈME N'A PAS ACCEPTÉ VOS RÉPONSES
-            </h3> 
+      <div class="center-error-message">
+        <img src="../../../asset/laptop/failed.png" alt="forbidden sign" />
+        <h3 class="error-text">
+          <span class="capital">L</span>E SYSTÈME N'A PAS ACCEPTÉ VOS RÉPONSES
+        </h3>
+      </div>
+      <div id="container-puzzle" class="container-number hidden"></div>
+      <div id="answer-container" class="answer-section hidden">
+        <div class="countdown">
+          <div class="progress-bar"></div>
         </div>
-        <div id="container-puzzle" class="container-number hidden"></div>
-        <div id="answer-container" class="answer-section hidden">
-            <div class="countdown hidden">
-                <div class="progress-bar"></div>
-              </div>
-            <div class="question"></div>
-            <div class="answer-box">
-                <div class="description">Answer</div>
-                <div class="input-area">
-                  <img src="../../../asset/laptop/spy.png" class="input-icon">
-                  <input class="answer-input" id="answer-placeholder" placeholder="blue square">
-                </div>
-            </div>
+        <div class="question"></div>
+        <div class="answer-box">
+          <div class="description">Answer</div>
+          <div class="input-area">
+            <img src="../../../asset/laptop/spy.png" class="input-icon" />
+            <input
+              class="answer-input"
+              id="answer-placeholder"
+              placeholder="blue square"
+            />
+          </div>
         </div>
+      </div>
 
-        <div class="try-again">
-            <button id="try-again-button" class="hidden">Try Again</button>
-            <div class="try-again-hint hidden">Le temps s'est écoulé la réponse était "noir rouge"</div>
-            <div class="try-again-hint hidden">Trop vite? Entraînez-vous en changeant le temps du puzzle!</div>
+      <div class="try-again">
+        <button id="try-again-button" class="hidden">Try Again</button>
+        <div class="try-again-hint hidden">
+          Le temps s'est écoulé la réponse était "noir rouge"
         </div>
+        <div class="try-again-hint hidden">
+          Trop vite? Entraînez-vous en changeant le temps du puzzle!
+        </div>
+      </div>
     </div>
 
     <!-- <div class="configure">
@@ -59,7 +73,7 @@
             <button class="github-button">Github</button>
         </div>
     </div> -->
- 
+
     <script type="module" src="laptop.ts"></script>
-</body>
+  </body>
 </html>
