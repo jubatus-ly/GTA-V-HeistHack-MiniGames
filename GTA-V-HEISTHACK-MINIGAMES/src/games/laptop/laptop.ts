@@ -8,22 +8,35 @@ import {
 import './laptop.scss'
 import { getPuzzleSvg } from './svg-factory'
 
-const puzzleLength = 4
+const totalPuzzles = 4
+const tryAgainContainer = document.getElementById('try-again-id')!
 const tryAgainButton = document.getElementById('try-again-button')
-const tryAgainElements = document.querySelector('div.center-error-message')
-const containerPuzzle: HTMLElement =
+const centerMessageContainer = document.querySelector('div.center-message')!
+const puzzlesContainer: HTMLElement =
   document.getElementById('container-puzzle')!
 tryAgainButton?.addEventListener('click', tryAgain)
-
+const arrGeneratedPuzzle: PuzzleData[] = []
+const arrIndexPuzzleNumber: number[] = []
+let submitted: string | null
+let result: boolean = true
+let answer: string = ''
 const loadingArr = [
   'etablisement de la connection',
   'faire des trucs de hackerman...',
   "code d'accès indiqué; nécessite une saisie captcha humaine...",
 ]
+const timerPuzzleSecond = 10
+const answerContainer: HTMLElement =
+  document.getElementById('answer-container')!
+const progressBar: HTMLElement = document.querySelector('div.progress-bar')!
+const inputPuzzle: HTMLInputElement = document.getElementById(
+  'answer-placeholder'
+) as HTMLInputElement
+const tryAgainImg = centerMessageContainer.getElementsByTagName('img')[0]
+const loadingText = centerMessageContainer.getElementsByTagName('h3')[0]
+const tryAgainHint = document.querySelector('.try-again-hint')!
 
-function loadingHack(): void {
-  const tryAgainImg = tryAgainElements?.getElementsByTagName('img')[0]
-  const loadingText = tryAgainElements?.getElementsByTagName('h3')[0]
+async function loadingHack(): Promise<void> {
   tryAgainImg!.src = '../../../asset/laptop/spy.png'
 
   const arrPromises: Promise<void>[] = []
@@ -32,15 +45,12 @@ function loadingHack(): void {
   for (let i = 0; i < loadingArr.length; i++) {
     promise = new Promise<void>((resolve) => {
       setTimeout(() => {
-        if (loadingText) {
-          loadingText.getElementsByTagName('span')[0].innerHTML =
-            loadingArr[i][0].toUpperCase()
-          loadingText.childNodes[2].textContent = loadingArr[i]
-            .slice(1)
-            .toUpperCase()
-          console.log('changement ' + i)
-          resolve()
-        }
+        loadingText.getElementsByTagName('span')[0].innerHTML =
+          loadingArr[i][0].toUpperCase()
+        loadingText.childNodes[2].textContent = loadingArr[i]
+          .slice(1)
+          .toUpperCase()
+        resolve()
       }, i * 1000)
     })
 
@@ -49,12 +59,12 @@ function loadingHack(): void {
 
   Promise.all(arrPromises).then(() => {
     setTimeout(() => {
-      tryAgainElements?.classList.add('hidden')
-      containerPuzzle?.classList.remove('hidden')
+      centerMessageContainer?.classList.add('hidden')
+      puzzlesContainer?.classList.remove('hidden')
     }, 1000)
   })
 
-  hack(puzzleLength)
+  hack(totalPuzzles)
 }
 
 async function tryAgain(): Promise<void> {
@@ -65,83 +75,76 @@ async function init(): Promise<void> {
   loadingHack()
 }
 
-function hack(numberSquare: number) {
-  console.log('This is function does the logic of the hacking')
-  // const containerPuzzle: HTMLElement = document.getElementById("container-puzzle")!;
-  const arrPuzzleNumber: number[] = [...Array(puzzleLength)].map(
+function hack(numberSquares: number) {
+  result = true
+  if (!tryAgainContainer.classList.contains('hidden'))
+    tryAgainContainer.classList.add('hidden')
+  centerMessageContainer!.classList.remove('margin-top-auto')
+  const arrPuzzleNumber: number[] = [...Array(numberSquares)].map(
     (_, a) => a + 1
   )
-  const arrPromisesHideNumbers: Promise<void>[] = []
-  const arrIndexPuzzleNumber: number[] = []
-  for (let i = 0; i < numberSquare; i++) {
+  const arrPromisesHideNumbers: Promise<string>[] = []
+
+  for (let i = 0; i < numberSquares; i++) {
     const divPuzzle = document.createElement('div')
     divPuzzle.classList.add('square')
     const squareNumber = i + 1
     divPuzzle.id = 'square-' + squareNumber
     const index = Math.floor(Math.random() * arrPuzzleNumber.length)
     arrIndexPuzzleNumber.push(arrPuzzleNumber[index])
-    const p: Promise<void> = displayNumbers(
+
+    const puzzleNumber = arrPuzzleNumber[index]
+    const p: Promise<string> = displayNumber(
       divPuzzle,
       arrPuzzleNumber[index],
       i
     ).then(() => {
-      console.log(
-        `Number ${arrPuzzleNumber[index]} has finished its animation.`
-      )
+      return `Number ${puzzleNumber} has finished its animation.`
     })
-    arrPromisesHideNumbers.push(p)
+
     arrPuzzleNumber.splice(index, 1)
-    containerPuzzle.appendChild(divPuzzle)
+    arrPromisesHideNumbers.push(p)
+    puzzlesContainer.appendChild(divPuzzle)
   }
 
-  const arrGeneratedPuzzle: PuzzleData[] = []
   Promise.all(arrPromisesHideNumbers).then(async () => {
     const squaresElement: NodeListOf<HTMLElement> =
       document.querySelectorAll('.square')!
-    squaresElement.forEach((value) => {
-      value.querySelector('div')?.remove()
-      const puzzle = generateRandomPuzzle()
-      arrGeneratedPuzzle.push(puzzle)
-      value.style.background = sample(Object.keys(COLORS))
-      while (puzzle.shape === value.style.background)
-        value.style.background = sample(Object.keys(COLORS))
-      const puzzleSVG = getPuzzleSvg(puzzle)
-      value.innerHTML = puzzleSVG
-    })
 
-    const answerSection = document.getElementById('answer-container')
-    answerSection?.classList.remove('hidden')
-    const [question, answer] = generateQuestionAndAnswer(
-      arrIndexPuzzleNumber,
-      arrGeneratedPuzzle
-    )
-    const questionDiv = answerSection!.querySelector('.question')!
-    questionDiv.innerHTML = question
-    console.log('Question: ' + question + ' Answer: ' + answer)
+    for (let i = 0; i < 4 && result; i++) {
+      ;[submitted, answer] = await displayPuzzles(squaresElement)
+      result = submitted === answer ? true : false
+    }
 
-    ResultPuzzle(answer)
+    resultPuzzle(result, answer)
+
+    document
+      .querySelectorAll('div[id^="square-"]')
+      .forEach((div) => div.remove())
+
+    return 'Promise all resolved'
   })
 }
 
-function displayNumbers(
+function displayNumber(
   divPuzzle: HTMLElement,
   num: number,
   index: number
-): Promise<void> {
+): Promise<string> {
   const numberContainer: HTMLElement = document.createElement('div')
   numberContainer.innerHTML = `${num}`
   numberContainer.classList.add('can-shrink')
   numberContainer.id = `num-${index + 1}`
   divPuzzle.appendChild(numberContainer)
 
-  return new Promise<void>((resolve) =>
+  return new Promise<string>((resolve) =>
     setTimeout(() => {
       numberContainer.classList.add('number-shrink')
       // Listen for the transitionend event
       numberContainer.addEventListener(
         'transitionend',
         () => {
-          resolve()
+          return resolve('foo')
         },
         { once: true }
       )
@@ -149,19 +152,17 @@ function displayNumbers(
   )
 }
 
-const timerPuzzleSecond = 10
-const answerContainer: HTMLElement =
-  document.getElementById('answer-container')!
-const progressBar: HTMLElement = document.querySelector('div.progress-bar')!
-const inputPuzzle: HTMLInputElement = document.getElementById(
-  'answer-placeholder'
-) as HTMLInputElement
-// the doPuzzle() function either shows the visual try again or visual new puzzle
-function doPuzzle(timerMs: number): Promise<string | null> {
-  progressBar.style.transition = `width ${timerMs}ms linear`
-  setTimeout(() => {
-    progressBar.classList.add('progress-bar-shrink')
-  }, 0)
+function counter(timerMs: number): Promise<string | null> {
+  inputPuzzle.value = ''
+  progressBar.style.transition = 'none'
+  progressBar.classList.remove('progress-bar-shrink')
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      progressBar.style.transition = `width ${timerMs}ms linear`
+      progressBar.classList.add('progress-bar-shrink')
+    })
+  })
 
   return new Promise((resolve) => {
     inputPuzzle.addEventListener('keyup', (event) => {
@@ -174,34 +175,70 @@ function doPuzzle(timerMs: number): Promise<string | null> {
       resolve(null)
     }, timerMs)
   })
-  // waiting for an answer and if it returns a respond and enter ==> stop (get the result)
-  // waiting for an answer but there is not input or there is and timer finished without enter ==> stop (get the result)
-  // final: hide the visual answer question and either show the visual try again or the visual new puzzle
 }
 
-async function ResultPuzzle(answer: string): Promise<void> {
-  const tryAgainImg = tryAgainElements?.getElementsByTagName('img')[0]
-  const loadingText = tryAgainElements?.getElementsByTagName('h3')[0]
-  tryAgainImg!.src = '../../../asset/laptop/spy.png'
-
-  let result = true
-
-  for (let i = 0; i < 4 && result; i++) {
-    const response = await doPuzzle(timerPuzzleSecond * 10000).then()
-    result = response != null && response === answer
-  }
-
+function resultPuzzle(result: boolean, answer: string): void {
   if (result) {
-    // For the system to be Bypassed it needs to have 4 puzzles
-    console.log('The System Has Been Bypassed By The Hacker')
+    displayMessageAfterPuzzle(
+      '../../../asset/laptop/spy.png',
+      'LE SYSTÈME A ÉTÉ CONTOURNÉ.',
+      `Bon travail, la réponse était "${answer}"`
+    )
   } else {
-    console.log(containerPuzzle)
-    containerPuzzle.classList.add('hidden')
-    tryAgainElements!.classList.remove('hidden')
-    answerContainer.classList.add('hidden')
-    tryAgainImg!.src = '../../../asset/laptop/failed.png'
-    loadingText!.innerHTML = "THE SYSTEM DIDN'T ACCEPT YOUR ANSWERS"
+    displayMessageAfterPuzzle(
+      '../../../asset/laptop/failed.png',
+      "LE SYSTÈME N'A PAS ACCEPTÉ VOS RÉPONSES",
+      `Le temps s'est écoulé la réponse était "${answer}"`
+    )
   }
+}
+
+async function displayPuzzles(
+  squaresElement: NodeListOf<HTMLElement>
+): Promise<[string | null, string]> {
+  squaresElement.forEach((value: HTMLElement) => {
+    value.querySelector('div')?.remove()
+    const puzzle = generateRandomPuzzle()
+    arrGeneratedPuzzle.push(puzzle)
+    value.style.background = sample(Object.keys(COLORS))
+    while (puzzle.colors['background'] === value.style.background)
+      value.style.background = sample(Object.keys(COLORS))
+    const puzzleSVG = getPuzzleSvg(puzzle)
+    value.innerHTML = puzzleSVG
+  })
+
+  const answerSection = document.getElementById('answer-container')
+  answerSection?.classList.remove('hidden')
+  const [question, answer] = generateQuestionAndAnswer(
+    arrIndexPuzzleNumber,
+    arrGeneratedPuzzle
+  )
+  const questionDiv = answerSection!.querySelector('.question')!
+  questionDiv.innerHTML = question
+  console.log('Question: ' + question + ' Answer: ' + answer)
+
+  await counter(timerPuzzleSecond * 1000).then((value) => {
+    submitted = value
+    console.log('Submitted: ' + submitted + ' answer: ' + answer)
+  })
+  return [submitted, answer]
+}
+
+function displayMessageAfterPuzzle(
+  imageSrc: string,
+  message: string,
+  hint: string
+): void {
+  puzzlesContainer.classList.add('hidden')
+  centerMessageContainer!.classList.remove('hidden')
+  answerContainer.classList.add('hidden')
+  tryAgainContainer.classList.remove('hidden')
+  centerMessageContainer!.classList.add('margin-top-auto')
+  tryAgainImg!.src = imageSrc
+  loadingText.getElementsByTagName('span')[0].innerHTML =
+    message[0].toUpperCase()
+  loadingText.childNodes[2].textContent = message.slice(1).toUpperCase()
+  tryAgainHint.innerHTML = hint
 }
 
 init()

@@ -13,7 +13,7 @@
   </head>
   <body class="laptop-hack">
     <div class="laptop-screen">
-      <div class="center-error-message">
+      <div class="center-message">
         <img src="../../../asset/laptop/failed.png" alt="forbidden sign" />
         <h3 class="error-text">
           <span class="capital">L</span>E SYSTÈME N'A PAS ACCEPTÉ VOS RÉPONSES
@@ -38,12 +38,10 @@
         </div>
       </div>
 
-      <div class="try-again">
-        <button id="try-again-button" class="hidden">Try Again</button>
-        <div class="try-again-hint hidden">
-          Le temps s'est écoulé la réponse était "noir rouge"
-        </div>
-        <div class="try-again-hint hidden">
+      <div id="try-again-id" class="try-again hidden">
+        <button id="try-again-button">Try Again</button>
+        <div class="try-again-hint"></div>
+        <div class="try-again-hint">
           Trop vite? Entraînez-vous en changeant le temps du puzzle!
         </div>
       </div>

@@ -42,14 +42,18 @@ button:hover {
     background-color: #20242e;
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: center;
     flex-wrap: wrap;
 
-    .center-error-message {
+    .center-message {
       padding-top: 4.375rem;
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    .margin-top-auto {
+      margin-top: auto;
     }
 
     .error-text {
@@ -163,19 +167,16 @@ button:hover {
         }
 
         .answer-input {
+          width: 100%;
           color: white;
           border: transparent;
           background-color: rgba(0, 0, 0, 0);
           padding: 5px;
-
-          padding: 5px;
-
           display: inline-block;
           vertical-align: top;
-
           font-size: 16px;
           padding-top: 5px;
-          width: 170px;
+          width: 432px;
         }
       }
     }
