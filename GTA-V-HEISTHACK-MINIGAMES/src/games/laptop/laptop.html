@@ -47,30 +47,76 @@
       </div>
     </div>
 
-    <!-- <div class="configure">
-        <div class="hack">
-            <div class="puzzle-amount">
-                <input type="range" id="amount-control" name="amount-control" min="5" max="30" value="7">
-                <div class="display-amount">
-                    Puzzle Amount: <span class="number">4</span>
-                </div>
-            </div>
-            <div class="puzzle-time">
-                <input type="range" id="time-control" name="time-control" min="5" max="30" value="7">
-                <div class="display-time">
-                    Puzzle Time: <span class="number">7</span>
-                </div>
-            </div>
+    <div class="configure-hack">
+      <div class="puzzle-amount">
+        <input
+          type="range"
+          id="amount-control"
+          name="amount-control"
+          min="5"
+          max="30"
+          value="7"
+        />
+        <div class="display-amount">
+          Puzzle Amount: <span class="number">4</span>
         </div>
-        <div class="help">
-            <button class="language-button">
-                <span class="flag-selected-display flag-icon"></span>
-                v
-            </button>
-            <button class="help-button">?</button>
-            <button class="github-button">Github</button>
+      </div>
+      <div class="puzzle-time">
+        <input
+          type="range"
+          id="time-control"
+          name="time-control"
+          min="5"
+          max="30"
+          value="7"
+        />
+        <div class="display-time">
+          Puzzle Time: <span class="number">7</span>
         </div>
-    </div> -->
+      </div>
+    </div>
+    <div class="configure-help">
+      <button class="language-button">
+        <span class="flag-selected-display flag-icon"></span>
+        v
+      </button>
+      <button id="help-button" class="help-button">?</button>
+      <button class="github-button">Github</button>
+    </div>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h2>Hack Mini Game Explained</h2>
+        <p>
+          This is a logical reasoning test where you need to quickly connect the
+          words, colors, and shapes.
+        </p>
+        <img
+          class="tutorial-image"
+          src="../../../asset/laptop/number-displayed.png"
+          alt=""
+        />
+        <p>
+          See here how the numbers are connect to the images giving us the
+          answer square orange.
+        </p>
+        <img
+          class="tutorial-image"
+          src="../../../asset/laptop/puzzle.png"
+          alt=""
+        />
+        <h2>Tip:</h2>
+        <p>
+          Using the slider at the bottom of the page you can change the puzzle
+          time.
+        </p>
+        <p>
+          You can use this to practice and increase the speed when you get the
+          hang of it.
+        </p>
+      </div>
+    </div>
 
     <script type="module" src="laptop.ts"></script>
   </body>

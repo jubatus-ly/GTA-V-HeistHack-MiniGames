@@ -241,4 +241,25 @@ function displayMessageAfterPuzzle(
   tryAgainHint.innerHTML = hint
 }
 
+const modal = document.getElementById('modal') as HTMLElement
+const helpButton = document.getElementById('help-button') as HTMLButtonElement
+const closeModalElement = document.getElementById('closeModal') as HTMLElement
+
+helpButton.addEventListener('click', openModal)
+closeModalElement.addEventListener('click', closeModal)
+
+function openModal(): void {
+  modal.style.display = 'flex'
+}
+
+function closeModal(): void {
+  modal.style.display = 'none'
+}
+
+window.addEventListener('click', (event: MouseEvent) => {
+  if (event.target === modal) {
+    closeModal()
+  }
+})
+
 init()
