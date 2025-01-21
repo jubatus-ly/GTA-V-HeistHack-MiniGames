@@ -3,7 +3,7 @@ $h-font-c: #bababa;
 $h-font: 'Noto Sans', sans-serif;
 $h-calc: calc((100vw - (34.375rem * 2 + 1.525rem)) / 2);
 $h-pd-card-element: 0.625rem;
-$breakpoint-screen: 480px;
+$breakpoint-screen: 30rem;
 
 %display-flex {
   display: flex;
@@ -26,7 +26,7 @@ $breakpoint-screen: 480px;
 }
 
 html {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .main-heist-hack {
@@ -91,7 +91,7 @@ html {
     }
 
     .card:hover {
-      transform: translate(4px, -4px);
+      transform: translate(0.25rem, -0.25rem);
       box-shadow: -0.5rem 0.5rem 0.313rem black;
     }
 
@@ -102,7 +102,6 @@ html {
       display: -webkit-box;
       -webkit-line-clamp: 7;
       -webkit-box-orient: vertical;
-      // find a way to change this webkit-box-orient stuff because it's deprecated
     }
   }
 }

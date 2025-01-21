@@ -111,7 +111,7 @@ function hack(numberSquares: number) {
     const squaresElement: NodeListOf<HTMLElement> =
       document.querySelectorAll('.square')!
 
-    for (let i = 0; i < 4 && result; i++) {
+    for (let i = 0; i < 3 && result; i++) {
       ;[submitted, answer] = await displayPuzzles(squaresElement)
       result = submitted === answer ? true : false
     }
