@@ -9,32 +9,43 @@ import './laptop.scss'
 import { getPuzzleSvg } from './svg-factory'
 
 const totalPuzzles = 4
-const tryAgainContainer = document.getElementById('try-again-id')!
-const tryAgainButton = document.getElementById('try-again-button')
-const centerMessageContainer = document.querySelector('div.center-message')!
-const puzzlesContainer: HTMLElement =
-  document.getElementById('container-puzzle')!
+const tryAgainContainer: HTMLElement = document.getElementById(
+  'try-again-id'
+)! as HTMLElement
+const tryAgainButton: HTMLButtonElement = document.getElementById(
+  'try-again-button'
+) as HTMLButtonElement
+const centerMessageContainer: HTMLElement = document.querySelector(
+  'div.center-message'
+)! as HTMLElement
+const puzzlesContainer: HTMLElement = document.getElementById(
+  'container-puzzle'
+)! as HTMLElement
 tryAgainButton?.addEventListener('click', tryAgain)
 const arrGeneratedPuzzle: PuzzleData[] = []
 const arrIndexPuzzleNumber: number[] = []
 let submitted: string | null
 let result: boolean = true
 let answer: string = ''
-const loadingArr = [
+const loadingArr: string[] = [
   'etablisement de la connection',
   'faire des trucs de hackerman...',
   "code d'accès indiqué; nécessite une saisie captcha humaine...",
 ]
-const timerPuzzleSecond = 10
+const timerPuzzleSecond: number = 10
 const answerContainer: HTMLElement =
   document.getElementById('answer-container')!
 const progressBar: HTMLElement = document.querySelector('div.progress-bar')!
 const inputPuzzle: HTMLInputElement = document.getElementById(
   'answer-placeholder'
 ) as HTMLInputElement
-const tryAgainImg = centerMessageContainer.getElementsByTagName('img')[0]
-const loadingText = centerMessageContainer.getElementsByTagName('h3')[0]
-const tryAgainHint = document.querySelector('.try-again-hint')!
+const tryAgainImg = centerMessageContainer.getElementsByTagName(
+  'img'
+)[0] as HTMLImageElement
+const loadingText = centerMessageContainer.getElementsByTagName(
+  'h3'
+)[0] as HTMLHeadingElement
+const tryAgainHint = document.querySelector('.try-again-hint')! as HTMLElement
 
 async function loadingHack(): Promise<void> {
   tryAgainImg!.src = '../../../asset/laptop/spy.png'
@@ -75,7 +86,7 @@ async function init(): Promise<void> {
   loadingHack()
 }
 
-function hack(numberSquares: number) {
+function hack(numberSquares: number): void {
   result = true
   if (!tryAgainContainer.classList.contains('hidden'))
     tryAgainContainer.classList.add('hidden')
