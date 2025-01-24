@@ -7,6 +7,8 @@ import {
 } from './laptop-puzzle-factory';
 import './laptop.scss';
 import { getPuzzleSvg } from './svg-factory';
+import imageSpy from './../../../asset/laptop/spy.png';
+import imageFailed from './../../../asset/laptop/failed.png';
 
 const totalPuzzles = 4;
 const tryAgainContainer: HTMLElement = document.getElementById(
@@ -48,8 +50,7 @@ const loadingText = centerMessageContainer.getElementsByTagName(
 const tryAgainHint = document.querySelector('.try-again-hint')! as HTMLElement;
 
 async function loadingHack(): Promise<void> {
-  tryAgainImg!.src = '../../../asset/laptop/spy.png';
-
+  tryAgainImg!.src = imageSpy;
   const arrPromises: Promise<void>[] = [];
   let promise: Promise<void>;
 
@@ -191,13 +192,13 @@ function counter(timerMs: number): Promise<string | null> {
 function resultPuzzle(result: boolean, answer: string): void {
   if (result) {
     displayMessageAfterPuzzle(
-      '../../../asset/laptop/spy.png',
+      imageSpy,
       'LE SYSTÈME A ÉTÉ CONTOURNÉ.',
       `Bon travail, la réponse était "${answer}"`
     );
   } else {
     displayMessageAfterPuzzle(
-      '../../../asset/laptop/failed.png',
+      imageFailed,
       "LE SYSTÈME N'A PAS ACCEPTÉ VOS RÉPONSES",
       `Le temps s'est écoulé la réponse était "${answer}"`
     );

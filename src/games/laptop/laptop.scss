@@ -24,7 +24,7 @@ $h-padding-spacing: 0.938rem;
 }
 
 html {
-  background: url('../../../asset/laptop-hack.png') no-repeat center center
+  background: url('./../../../asset/laptop-hack.png') no-repeat center center
     fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -238,7 +238,7 @@ button:hover {
       padding: 0.125rem 0.625rem 0.125rem 0rem;
 
       .flag-icon {
-        background-image: url('../../../asset/countries/fr.svg');
+        background-image: url('./../../../asset/countries/fr.svg');
       }
 
       .flag-selected-display {
